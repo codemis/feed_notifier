@@ -1,0 +1,6 @@
+# Configuration for the Parse API
+#
+parse:
+  push_url: https://api.parse.com/1/push
+  app_id: YOUR_APP_ID
+  rest_key: YOUR_REST_KEY
