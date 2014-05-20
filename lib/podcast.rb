@@ -1,0 +1,31 @@
+require 'feedjira'
+# Utilities for getting information about a podcast
+#
+class Podcast
+
+  # Initialize the class
+  #
+  def initialize(feed_url)
+    @feed = Feedjira::Feed.parse open(feed_url).read
+  end
+
+  # Check if there is a new podcast after the given date
+  #
+  def has_new?(date)
+    raise ArgumentError, "date must be a Date object." unless valid_date?(date)
+    has_new = false
+    @feed.entries.each do |entry|
+      has_new = true if entry.published.to_date > date
+    end
+    has_new
+  end
+
+  private
+
+    # Checks if a date is a valid Date object
+    #
+    def valid_date?(date)
+      date.is_a?(Date)
+    end
+
+end
