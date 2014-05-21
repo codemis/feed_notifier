@@ -9,16 +9,6 @@ RSpec.describe Feed do
     @blog_url = File.expand_path("../../sample_feeds/blog.xml", __FILE__)
   end
 
-  describe "initialize class" do
-
-    it "should throw an error if a the URL is bad" do
-      expect { 
-        Feed.new(File.expand_path("../../sample_feeds/fake.xml", __FILE__))
-      }.to raise_error(ArgumentError)
-    end
-
-  end
-
   describe "#has_new?" do
 
     it "should return true if there is a new podcast later than the date given" do
@@ -43,11 +33,6 @@ RSpec.describe Feed do
       blog = Feed.new(@blog_url)
       has_new = blog.has_new?(Date.parse('2014-05-15'))
       expect(has_new).to eq(false)
-    end
-
-    it "should throw an error if a Date is not passed" do
-      podcast = Feed.new(@podcast_url)
-      expect { podcast.has_new?('2014-05-12') }.to raise_error(ArgumentError)
     end
 
   end
