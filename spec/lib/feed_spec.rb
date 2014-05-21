@@ -11,6 +11,12 @@ RSpec.describe Feed do
 
   describe "#has_new?" do
 
+    it "should throw an error if a the URL is bad" do
+      expect { 
+        Feed.new(File.expand_path("../../sample_feeds/fake.xml", __FILE__))
+      }.to raise_error(ArgumentError)
+    end
+
     it "returns true if there is a new podcast later than the date given" do
       podcast = Feed.new(@podcast_url)
       has_new = podcast.has_new?(Date.parse('2001-02-03'))

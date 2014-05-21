@@ -6,7 +6,11 @@ class Feed
   # Initialize the class
   #
   def initialize(feed_url)
-    @feed = Feedjira::Feed.parse open(feed_url).read
+    begin
+      @feed = Feedjira::Feed.parse open(feed_url).read
+    rescue Exception => e
+      raise ArgumentError, "The feed URL is invalid."
+    end
   end
 
   # Check if there is a new podcast after the given date
