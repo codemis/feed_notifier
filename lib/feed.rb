@@ -24,6 +24,12 @@ class Feed
     has_new
   end
 
+  # Get the latest entry
+  #
+  def latest_entry
+    @feed.entries.sort_by { |k| !k["published"] }.first
+  end
+
   private
 
     # Checks if a date is a valid Date object
