@@ -6,20 +6,15 @@ class Feed
   # Initialize the class
   #
   def initialize(feed_url)
-    begin
-      @feed = Feedjira::Feed.parse open(feed_url).read
-    rescue Exception => e
-      raise ArgumentError, "The feed URL is invalid."
-    end
+    @feed = Feedjira::Feed.parse open(feed_url).read
   end
 
-  # Check if there is a new podcast after the given date
+  # Check if there is a new podcast after the given DateTime
   #
-  def has_new?(date)
-    raise ArgumentError, "date must be a Date object." unless valid_date?(date)
+  def has_new?(date_time)
     has_new = false
     @feed.entries.each do |entry|
-      has_new = true if entry.published.to_date > date
+      has_new = true if entry.published.to_date > date_time
     end
     has_new
   end
@@ -29,13 +24,5 @@ class Feed
   def latest_entry
     @feed.entries.sort_by { |k| !k["published"] }.first
   end
-
-  private
-
-    # Checks if a date is a valid Date object
-    #
-    def valid_date?(date)
-      date.is_a?(Date)
-    end
 
 end
