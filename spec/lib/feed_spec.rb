@@ -62,6 +62,14 @@ RSpec.describe Feed do
       expect(latest.enclosure_url).to eq('http://sgucandcs.org/podcast_item/38/286/2014.5.11.mp3')
     end
 
+    it "should return the latest blog post" do
+      blog = Feed.new(@blog_url)
+      latest = blog.latest_entry
+      expect(latest.title).to eq('Feed Your Heart. Feed It! (Scottish Accent)')
+      expect(latest.author).to eq('Geoff Smith')
+      expect(latest.url).to eq('http://www.sgucblog.com/2014/05/14/feed-your-heart-feed-it-scottish-accent/')
+    end
+
   end
 
 end
