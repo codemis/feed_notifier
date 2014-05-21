@@ -9,12 +9,12 @@ class Feed
     @feed = Feedjira::Feed.parse open(feed_url).read
   end
 
-  # Check if there is a new podcast after the given date
+  # Check if there is a new podcast after the given DateTime
   #
-  def has_new?(date)
+  def has_new?(date_time)
     has_new = false
     @feed.entries.each do |entry|
-      has_new = true if entry.published.to_date > date
+      has_new = true if entry.published.to_date > date_time
     end
     has_new
   end
