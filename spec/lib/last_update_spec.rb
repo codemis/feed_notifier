@@ -29,20 +29,20 @@ RSpec.describe LastUpdate do
 
   end
 
-  describe "#datetime" do
+  describe "#find" do
 
     it "should return the last update date for a blog post" do
       contents = YAML.load_file(@last_update_file)
       expected_date = DateTime.parse(contents['last_update']['blog']['date'])
       last_update = LastUpdate.new(@last_update_file)
-      expect(last_update.datetime('blog')).to eq(expected_date)
+      expect(last_update.find('blog')).to eq(expected_date)
     end
 
     it "should return the last update date for a podcast" do
       contents = YAML.load_file(@last_update_file)
       expected_date = DateTime.parse(contents['last_update']['podcast']['date'])
       last_update = LastUpdate.new(@last_update_file)
-      expect(last_update.datetime('podcast')).to eq(expected_date)
+      expect(last_update.find('podcast')).to eq(expected_date)
     end
 
   end

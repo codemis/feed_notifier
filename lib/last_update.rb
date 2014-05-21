@@ -18,7 +18,7 @@ class LastUpdate
 
   # Gets the last updated date and returns the date time object
   #
-  def datetime(key)
+  def find(key)
     contents = YAML.load_file(@config_file)
     DateTime.parse(contents['last_update'][key]['date'])
   end
