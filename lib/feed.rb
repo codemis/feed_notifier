@@ -1,7 +1,7 @@
 require 'feedjira'
 # Utilities for getting information about a podcast
 #
-class Podcast
+class Feed
 
   # Initialize the class
   #
