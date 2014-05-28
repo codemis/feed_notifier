@@ -1,2 +1,4 @@
 settings/parse.yml
+settings/feeds.yml
+settings/last_update.yml
 .DS_Store
