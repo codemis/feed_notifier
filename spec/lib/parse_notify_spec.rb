@@ -15,7 +15,7 @@ RSpec.describe ParseNotify do
       it "should setup the required Parse request headers" do
         parse_notify = ParseNotify.new(@parse_settings['parse'])
         message = 'New Sermon: Love Zombies'
-        stub_post = stub_request(:post, @parse_url)
+        stub_post = stub_request(:post, @parse_url).to_return(:body => {'result' =>  'true'}.to_json)
         parse_notify.send(message)
         assert_requested(:post, @parse_url, :headers => {
           'Content-Type'            =>  'application/json',
@@ -28,7 +28,7 @@ RSpec.describe ParseNotify do
         WebMock.allow_net_connect!
         parse_notify = ParseNotify.new(@parse_settings['parse'])
         message = 'New Sermon: Love Zombies Too'
-        stub_post = stub_request(:post, @parse_url)
+        stub_post = stub_request(:post, @parse_url).to_return(:body => {'result' =>  'true'}.to_json)
         parse_notify.send(message)
         assert_requested(:post, @parse_url, :body => {
           'where' =>  {'deviceType'  =>  'ios'},
