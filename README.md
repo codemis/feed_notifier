@@ -19,7 +19,7 @@ To run the script, just run the following command in your command line utility:
 Development
 -----------
 
-Questions or problems? Please post them on the [issue tracker](). You can contribute changes by forking the project and submitting a pull request.
+Questions or problems? Please post them on the [issue tracker](https://github.com/codemis/feed_notifier/issues). You can contribute changes by forking the project and submitting a pull request.
 
 License
 -------
