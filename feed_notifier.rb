@@ -23,11 +23,6 @@ require 'open-uri'
 #
 Dir[File.join(Dir.pwd, 'lib', '*.rb')].each { |f| require f }
 
-# The feeds to check for updates
-#
-feeds = { 'blog'      =>  'http://www.sgucblog.com/feed/',
-          'podcast'   =>  'http://sgucandcs.org/podcast.php?pageID=38'}
-
 # Setup the Parse Settings
 #
 parse_settings_file = File.expand_path(File.join(Dir.pwd, 'settings', 'parse.yml'), __FILE__)
@@ -39,10 +34,15 @@ parse_notify = ParseNotify.new(parse_settings['parse'])
 last_update_file = File.expand_path(File.join(Dir.pwd, 'settings', 'last_update.yml'), __FILE__)
 last_update = LastUpdate.new(last_update_file)
 
+# Grab the feeds to check
+#
+feeds_file = File.expand_path(File.join(Dir.pwd, 'settings', 'feeds.yml'), __FILE__)
+feeds = YAML.load_file(feeds_file)['feeds']
+
 # Check the feeds
 #
 feeds.each do |slug, url|
-  puts "Checking URL: #{url}"
+  puts "Checking URL: #{url} with a slug: #{slug}"
   last_update_datetime = last_update.find(slug)
   feed = Feed.new(URI.parse(url))
 
