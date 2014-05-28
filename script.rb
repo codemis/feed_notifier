@@ -23,6 +23,11 @@ require 'open-uri'
 #
 Dir[File.join(Dir.pwd, 'lib', '*.rb')].each { |f| require f }
 
+# The feeds to check for updates
+#
+feeds = { 'blog'      =>  'http://www.sgucblog.com/feed/',
+          'podcast'   =>  'http://sgucandcs.org/podcast.php?pageID=38'}
+
 # Setup the Parse Settings
 #
 parse_settings_file = File.expand_path(File.join(Dir.pwd, 'settings', 'parse.yml'), __FILE__)
@@ -34,23 +39,22 @@ parse_notify = ParseNotify.new(parse_settings['parse'])
 last_update_file = File.expand_path(File.join(Dir.pwd, 'settings', 'last_update.yml'), __FILE__)
 last_update = LastUpdate.new(last_update_file)
 
-feeds = { 'blog'      =>  'http://www.sgucblog.com/feed/',
-          'podcast'   =>  'http://sgucandcs.org/podcast.php?pageID=38'}
-
+# Check the feeds
+#
 feeds.each do |slug, url|
   puts "Checking URL: #{url}"
-  # Check if there is a new blog post
-  #
   last_update_datetime = last_update.find(slug)
   feed = Feed.new(URI.parse(url))
 
-  # # Check if there is a new post
-  # #
+  # Check if there is a new post
+  #
   if feed.has_new?(last_update_datetime)
     puts "We have a new #{slug} entry titled #{feed.latest_entry.title}"
-    # Push the new blog entry
+    # Push the new blog entry to Parse
     #
     parse_notify.send("New #{slug.capitalize} Entry: #{feed.latest_entry.title}")
+    # Update the last update datetime
+    #
     last_update.save(slug, DateTime.now)
   end
 end
