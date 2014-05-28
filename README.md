@@ -6,10 +6,15 @@ it will push a notification to [Parse](http://parse.com).  It saves the last upd
 the script:
 
 1) Rename `parse.sample.yml` to `parse.yml` in the `settings` folder.
+
 2) Add your Parse settings to the `parse.yml` file.
+
 3) Rename `feeds.sample.yml` to `feeds.yml` in the `settings` folder.
+
 4) Add your feeds to the `feeds.yml` file.  The keys MUST be unique, because we use it to reference the last updated date and time.
+
 6) Rename `last_update.sample.yml` to `last_update.yml` in the `settings` folder.
+
 7) Add keys for each feed, and a starting date to the `last_update.yml` similar to the examples in the file.
 
 To run the script, just run the following command in your command line utility:
